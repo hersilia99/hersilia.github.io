@@ -126,7 +126,7 @@
     }
     /* Contenedor de la frase con fondo distinto */
     .hero-text-bg {
-      background: #00c4ff; /* Color de fondo distinto */
+      background: #9499ff; /* Color de fondo distinto */
       padding: 10px 20px;
       display: inline-block;
       border-radius: 4px;
@@ -179,7 +179,7 @@
     
     /* MISIÓN Y VISIÓN */
     #mision-vision {
-      background: #dbeeff; /* Fondo claro para Misión y Visión */
+      background: #9499ff; /* Fondo claro para Misión y Visión */
       padding: 60px 20px;
     }
     #mision-vision .mv-grid {
@@ -336,7 +336,7 @@
       align-items: center;
       gap: 5px;
     }
-    .socials a:hover { color: #0050D0; }
+    .socials a:hover { color: #9499ff; }
     
     /* RESPONSIVO */
     @media (max-width: 768px) {
