@@ -317,7 +317,7 @@
     
     /* FOOTER CON REDES SOCIALES */
     footer {
-      background: #f0f0f0;
+      background: #9499ff;
       padding: 20px;
       text-align: center;
       font-size: 0.9em;
