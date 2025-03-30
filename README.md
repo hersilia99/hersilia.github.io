@@ -7,8 +7,7 @@
   <!-- Fuentes y Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-        integrity="sha512-V4f/9L8W8b0x9v6Otvw+u1PZ1p9sZyWmKl2B6QeV+75xS4kRZL8T+Tdz2U9DIs2PZ8f8w4G9iYHc+1cF4z/+I3A==" 
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-V4f/9L8W8b0x9v6Otvw+u1PZ1p9sZyWmKl2B6QeV+75xS4kRZL8T+Tdz2U9DIs2PZ8f8w4G9iYHc+1cF4z/+I3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     /* RESET Y BASE */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,7 +23,7 @@
     img { max-width: 100%; display: block; }
     .container { width: 90%; max-width: 1200px; margin: auto; padding: 20px; }
     
-    /* HEADER DINÁMICO */
+    /* HEADER */
     header {
       position: fixed;
       top: 0; left: 0;
@@ -32,8 +31,8 @@
       z-index: 1000;
       background: rgba(255,255,255,0.98);
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 20px 0;
       transition: padding 0.3s;
+      padding: 20px 0;
     }
     header.shrink { padding: 5px 0; }
     .header-inner {
@@ -42,10 +41,16 @@
       align-items: center;
       transition: all 0.3s;
     }
-    .logo { margin-bottom: 10px; transition: all 0.3s; }
-    .logo img { width: 150px; transition: width 0.3s; }
-    header.shrink .logo img { width: 80px; }
-    /* MENÚ CON DROPDOWN */
+    /* Logo a ancho completo inicialmente, luego se achica */
+    .logo {
+      width: 100%;
+      text-align: center;
+      transition: all 0.3s;
+      margin-bottom: 10px;
+    }
+    .logo img { width: 100%; max-width: 400px; transition: width 0.3s; }
+    header.shrink .logo img { width: 200px; }
+    /* Menú de Navegación con Dropdown */
     nav {
       display: flex;
       flex-wrap: wrap;
@@ -76,10 +81,10 @@
     }
     .dropdown-content a:hover { background: #e0eaff; }
     .dropdown:hover .dropdown-content { display: block; }
-    /* Espacio para contenido tras header fijo */
+    /* Espacio para evitar contenido oculto por el header */
     .spacer { height: 110px; }
     
-    /* BOTÓN VOLVER ARRIBA */
+    /* Botón Volver Arriba */
     #backToTop {
       position: fixed;
       bottom: 20px;
@@ -94,11 +99,10 @@
       z-index: 1100;
     }
     
-    /* SECCIÓN HERO */
+    /* HERO */
     .hero {
       position: relative;
       height: 90vh;
-      /* Fondo alternativo para destacar la frase */
       background: url('https://via.placeholder.com/1600x900/000033/ffffff?text=Fondo+Hero') center center/cover no-repeat;
       display: flex;
       align-items: center;
@@ -119,6 +123,14 @@
       z-index: 2;
       max-width: 800px;
       padding: 0 20px;
+    }
+    /* Contenedor de la frase con fondo distinto */
+    .hero-text-bg {
+      background: #00c4ff; /* Color de fondo distinto */
+      padding: 10px 20px;
+      display: inline-block;
+      border-radius: 4px;
+      margin: 20px 0;
     }
     .hero h1 { font-size: 3em; margin-bottom: 15px; }
     .hero p { font-size: 1.4em; }
@@ -167,7 +179,7 @@
     
     /* MISIÓN Y VISIÓN */
     #mision-vision {
-      background: #e0eaff;
+      background: #dbeeff; /* Fondo claro para Misión y Visión */
       padding: 60px 20px;
     }
     #mision-vision .mv-grid {
@@ -193,7 +205,7 @@
     }
     #mision-vision .mv-item p { font-size: 1.1em; }
     
-    /* SERVICIOS CON SUBOPCIONES */
+    /* SERVICIOS */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -326,7 +338,7 @@
     }
     .socials a:hover { color: #0050D0; }
     
-    /* RESPONSIVIDAD */
+    /* RESPONSIVO */
     @media (max-width: 768px) {
       .about-grid { flex-direction: column; text-align: center; }
       nav { flex-direction: column; gap: 10px; }
@@ -334,7 +346,7 @@
     }
   </style>
   <script>
-    // Agregar clase "shrink" al header y mostrar botón de volver arriba
+    // Agregar clase "shrink" al header y mostrar botón volver arriba
     window.addEventListener("scroll", function() {
       const header = document.querySelector("header");
       if (window.scrollY > 100) {
@@ -356,7 +368,7 @@
   <header id="inicio">
     <div class="container header-inner">
       <div class="logo">
-        <!-- Se recomienda utilizar una imagen de logo de alta calidad -->
+        <!-- Logo a ancho completo inicialmente -->
         <a href="#inicio"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Logo Hersilia"></a>
       </div>
       <nav>
@@ -382,13 +394,19 @@
   <!-- BOTÓN VOLVER ARRIBA -->
   <button id="backToTop" onclick="scrollToTop()">↑ Arriba</button>
 
+  <!-- ICONO FLOTANTE DE WHATSAPP -->
+  <a href="https://wa.me/593981811831?text=Hola%20Hersilia,%20deseo%20informaci%C3%B3n" target="_blank" 
+     style="position: fixed; bottom: 20px; left: 20px; background: #25D366; color: #fff; padding: 15px; border-radius: 50%; z-index: 1100;">
+    <i class="fab fa-whatsapp" style="font-size: 1.5em;"></i>
+  </a>
+
   <!-- SECCIÓN HERO -->
   <section class="hero">
     <div class="container hero-content">
       <h1>Un legado de amor, un futuro de salud</h1>
-      <!-- Imagen de la cara o elemento gráfico que complemente la frase -->
+      <!-- Imagen complementaria (puede ser la cara del centro) -->
       <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Imagen destacada" style="margin:20px auto; max-width:300px;">
-      <p>En HERSILIA brindamos apoyo integral en salud mental, con profesionales comprometidos con tu bienestar.</p>
+      <p>En HERSILIA brindamos apoyo integral en salud mental con profesionales comprometidos.</p>
     </div>
   </section>
 
@@ -396,7 +414,7 @@
   <section id="nosotros">
     <div class="container">
       <h2>Sobre Nosotros</h2>
-      <p><strong>Nuestra Historia:</strong> Hersilia nace con la visión de transformar vidas a través de la atención psicológica y el acompañamiento emocional. Desarrollamos programas para niños, adolescentes, adultos y la tercera edad.</p>
+      <p><strong>Nuestra Historia:</strong> Hersilia nace con la visión de transformar vidas mediante la atención psicológica y el acompañamiento emocional. Desarrollamos programas para niños, adolescentes, adultos y la tercera edad.</p>
       <p><strong>Nuestro Equipo:</strong> Profesionales expertos en terapia individual, de pareja y familiar, además de talleres de desarrollo personal.</p>
     </div>
   </section>
@@ -412,35 +430,35 @@
         </div>
         <div class="mv-item">
           <h3>Visión</h3>
-          <p>Ser un referente nacional en salud mental, impactando positivamente la calidad de vida de las personas y familias.</p>
+          <p>Ser un referente nacional en salud mental, impactando positivamente la calidad de vida de las personas y sus familias.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICIOS CON SUBOPCIONES -->
+  <!-- SERVICIOS -->
   <section id="servicios">
     <div class="container">
       <h2>Servicios y Beneficios</h2>
       <div class="services-grid">
-        <div class="service">
+        <div class="service" id="atencion">
           <i class="fa fa-heartbeat"></i>
-          <h3 id="atencion">Atención Integral</h3>
+          <h3>Atención Integral</h3>
           <p>Soluciones personalizadas para cada necesidad.</p>
         </div>
-        <div class="service">
+        <div class="service" id="talleres">
           <i class="fa fa-users"></i>
-          <h3 id="talleres">Talleres</h3>
+          <h3>Talleres</h3>
           <p>Espacios para desarrollar habilidades y fortalecer vínculos.</p>
         </div>
-        <div class="service">
+        <div class="service" id="capacitaciones">
           <i class="fa fa-chalkboard-teacher"></i>
-          <h3 id="capacitaciones">Capacitaciones</h3>
+          <h3>Capacitaciones</h3>
           <p>Formación continua para el crecimiento personal y profesional.</p>
         </div>
-        <div class="service">
+        <div class="service" id="cursos">
           <i class="fa fa-graduation-cap"></i>
-          <h3 id="cursos">Cursos</h3>
+          <h3>Cursos</h3>
           <p>Programas educativos para ampliar conocimientos y habilidades.</p>
         </div>
       </div>
@@ -471,7 +489,7 @@
     <div class="container">
       <h2>Galería</h2>
       <div class="gallery-container">
-        <!-- Se usa el mismo enlace para las imágenes; reemplaza por las que prefieras -->
+        <!-- Reutilizamos la misma imagen de ejemplo -->
         <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 1"></div>
         <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 2"></div>
         <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 3"></div>
@@ -487,9 +505,9 @@
       <div class="contact-wrapper">
         <div class="contact-info">
           <h3>Información de Contacto</h3>
-          <p><strong>Teléfono:</strong> <a href="https://wa.me/593981811831" target="_blank">0981811831 (WhatsApp)</a></p>
+          <p><strong>Teléfono:</strong> <a href="https://wa.me/593981811831" target="_blank">(098) 181-1831 (WhatsApp)</a></p>
           <p><strong>Email:</strong> <a href="mailto:hersilia.ec@outlook.com">hersilia.ec@outlook.com</a></p>
-          <p><strong>Dirección:</strong> Hersilia Centro Psicológico Integral</p>
+          <p><strong>Dirección:</strong> <a href="https://goo.gl/maps/wLhuDJaFefDF1MyQ7" target="_blank">Ver en Google Maps</a></p>
         </div>
         <div class="contact-form">
           <h3>Envíanos un mensaje</h3>
@@ -517,14 +535,18 @@
   <footer>
     <div class="container">
       <div class="socials">
+        <!-- Se incluyen pequeños íconos para cada red, incluyendo WhatsApp -->
         <a href="https://www.facebook.com/people/Centro-Psicol%C3%B3gico-Integral-Hersilia/100064794828756/" target="_blank" aria-label="Facebook">
-          <i class="fab fa-facebook"></i> Facebook
+          <i class="fab fa-facebook"></i>
         </a>
         <a href="https://www.instagram.com/hersilia.ec/" target="_blank" aria-label="Instagram">
-          <i class="fab fa-instagram"></i> Instagram
+          <i class="fab fa-instagram"></i>
         </a>
         <a href="https://www.tiktok.com/@hersilia.ec" target="_blank" aria-label="TikTok">
-          <i class="fab fa-tiktok"></i> TikTok
+          <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://wa.me/593981811831?text=Hola%20Hersilia,%20deseo%20informaci%C3%B3n" target="_blank" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
         </a>
       </div>
       <p>&copy; 2025 Hersilia - Centro Psicológico Integral</p>
