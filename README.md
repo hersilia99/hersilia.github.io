@@ -1,10 +1,14 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HERSILIA – Centro Psicológico Integral</title>
-  <!-- Fuentes y Animate.css para animaciones -->
+  <!-- Fuentes y Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+        integrity="sha512-V4f/9L8W8b0x9v6Otvw+u1PZ1p9sZyWmKl2B6QeV+75xS4kRZL8T+Tdz2U9DIs2PZ8f8w4G9iYHc+1cF4z/+I3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Animate.css para animaciones (opcional) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <style>
     /* RESET Y BASE */
@@ -23,31 +27,41 @@
 
     /* HEADER */
     header {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      width: 100%;
       z-index: 1000;
       background: rgba(255,255,255,0.98);
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 15px 0;
+      transition: padding 0.3s, background 0.3s;
     }
+    header.shrink { padding: 5px 0; background: rgba(255,255,255,0.95); }
     .header-inner {
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: all 0.3s;
     }
     .logo {
       margin-bottom: 10px;
+      transition: all 0.3s;
     }
-    .logo img { width: 100px; }
+    /* El logo grande para el inicio */
+    .logo img { width: 150px; transition: width 0.3s; }
+    header.shrink .logo img { width: 80px; }
     nav {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       font-weight: 600;
       text-transform: uppercase;
+      margin-bottom: 10px;
     }
     nav a { padding: 5px 10px; color: #0025FC; border-radius: 4px; }
     nav a:hover { background: #e0eaff; }
+    /* Espaciado para que el contenido no quede oculto debajo del header */
+    .spacer { height: 110px; }
 
     /* BOTÓN VOLVER ARRIBA */
     #backToTop {
@@ -61,13 +75,13 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      z-index: 1001;
+      z-index: 1100;
     }
 
     /* HERO */
     .hero {
       position: relative;
-      height: 80vh;
+      height: 90vh;
       background: url('https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg') center center/cover no-repeat;
       display: flex;
       align-items: center;
@@ -89,14 +103,14 @@
       max-width: 800px;
       padding: 0 20px;
     }
-    .hero h1 { font-size: 2.8em; margin-bottom: 15px; }
-    .hero p { font-size: 1.3em; }
+    .hero h1 { font-size: 3em; margin-bottom: 15px; }
+    .hero p { font-size: 1.4em; }
 
     /* SECCIONES GENERALES */
     section { padding: 80px 20px; }
     section h2 {
       text-align: center;
-      font-size: 2em;
+      font-size: 2.2em;
       color: #0025FC;
       margin-bottom: 20px;
       position: relative;
@@ -122,36 +136,34 @@
       gap: 40px;
       align-items: center;
       justify-content: center;
-      margin-top: 30px;
     }
     #nosotros .about-grid img {
       flex: 1;
-      min-width: 280px;
-      max-width: 400px;
+      min-width: 300px;
+      max-width: 500px;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
       transition: transform 0.3s;
     }
     #nosotros .about-grid img:hover { transform: scale(1.03); }
-    #nosotros .about-text { flex: 1; min-width: 280px; max-width: 600px; }
+    #nosotros .about-text { flex: 1; min-width: 300px; max-width: 600px; }
 
     /* SERVICIOS */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
-      margin-top: 30px;
     }
     .service {
       background: #fff;
       border-radius: 8px;
       padding: 20px;
       text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
       transition: transform 0.3s;
     }
     .service:hover { transform: scale(1.02); }
-    .service i { font-size: 2em; color: #0045a0; margin-bottom: 15px; }
+    .service i { font-size: 2.5em; color: #0045a0; margin-bottom: 15px; }
     .service h3 { font-size: 1.3em; color: #0025FC; margin-bottom: 10px; }
 
     /* TESTIMONIOS */
@@ -160,7 +172,6 @@
       flex-wrap: wrap;
       gap: 30px;
       justify-content: center;
-      margin-top: 30px;
     }
     .testimonial {
       background: #fff;
@@ -169,7 +180,7 @@
       flex: 1;
       min-width: 250px;
       max-width: 350px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
       text-align: center;
     }
     .testimonial img {
@@ -185,14 +196,13 @@
     /* GALERÍA */
     .gallery-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      margin-top: 30px;
     }
     .gallery-item {
       overflow: hidden;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
       transition: transform 0.3s;
     }
     .gallery-item:hover { transform: scale(1.02); }
@@ -204,7 +214,6 @@
       gap: 40px;
       justify-content: center;
       align-items: flex-start;
-      margin-top: 30px;
     }
     .contact-info, .contact-form {
       flex: 1;
@@ -212,7 +221,7 @@
       background: #fff;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
     }
     .contact-info ul { list-style: none; margin-top: 15px; }
     .contact-info li { margin-bottom: 10px; font-size: 1.1em; }
@@ -238,7 +247,18 @@
     }
     .contact-form button:hover { background: #001bb8; }
 
-    /* FOOTER */
+    /* MAPA (ancho completo) */
+    .mapa {
+      width: 100%;
+      margin: 40px 0;
+    }
+    .mapa iframe {
+      width: 100%;
+      height: 450px;
+      border: 0;
+    }
+
+    /* FOOTER CON REDES SOCIALES */
     footer {
       background: #0025FC;
       color: #fff;
@@ -247,18 +267,35 @@
       margin-top: 40px;
     }
     footer p { margin: 5px 0; font-size: 0.95em; }
+    .socials {
+      margin-top: 15px;
+    }
+    .socials a {
+      margin: 0 10px;
+      font-size: 1.5em;
+      color: #fff;
+      transition: color 0.3s;
+    }
+    .socials a:hover { color: #c6c6c6; }
 
-    /* RESPONSIVE */
+    /* RESPONSIVE AJUSTES */
     @media (max-width: 768px) {
       .about-grid { flex-direction: column; text-align: center; }
       nav { flex-direction: column; gap: 10px; }
     }
   </style>
   <script>
-    // Botón Volver Arriba
+    // Header: agrega clase "shrink" al hacer scroll
     window.addEventListener("scroll", function() {
-      const btn = document.getElementById("backToTop");
-      btn.style.display = window.scrollY > 300 ? "block" : "none";
+      const header = document.querySelector("header");
+      if (window.scrollY > 100) {
+        header.classList.add("shrink");
+      } else {
+        header.classList.remove("shrink");
+      }
+      // Botón volver arriba
+      const backBtn = document.getElementById("backToTop");
+      backBtn.style.display = window.scrollY > 300 ? "block" : "none";
     });
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -267,7 +304,7 @@
 </head>
 <body>
 
-  <!-- HEADER CON LOGO CENTRADO -->
+  <!-- HEADER CON LOGO DINÁMICO -->
   <header id="inicio">
     <div class="container header-inner">
       <div class="logo">
@@ -282,6 +319,7 @@
       </nav>
     </div>
   </header>
+  <div class="spacer"></div>
 
   <!-- BOTÓN VOLVER ARRIBA -->
   <button id="backToTop" onclick="scrollToTop()">↑ Arriba</button>
@@ -290,7 +328,7 @@
   <section class="hero">
     <div class="container hero-content animate__animated animate__fadeInDown">
       <h1>Un Legado de Amor, un Futuro de Salud</h1>
-      <p>Brindamos apoyo integral en salud mental con profesionales comprometidos.</p>
+      <p>Apoyamos la salud mental con profesionales comprometidos.</p>
     </div>
   </section>
 
@@ -326,7 +364,7 @@
           <p>Fortalecemos vínculos afectivos y la comunicación en casa.</p>
         </div>
         <div class="service animate__animated animate__bounceIn" style="animation-delay: 0.4s;">
-          <i class="fa fa-lightbulb-o"></i>
+          <i class="fa fa-lightbulb"></i>
           <h3>Desarrollo Personal</h3>
           <p>Estrategias innovadoras para el bienestar emocional.</p>
         </div>
@@ -351,12 +389,12 @@
         </div>
         <div class="testimonial animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
           <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Testimonio 2">
-          <p>"El acompañamiento familiar cambió la dinámica en mi hogar."</p>
+          <p>"El acompañamiento familiar transformó nuestra dinámica en casa."</p>
           <h4>- Carlos, 45 años</h4>
         </div>
         <div class="testimonial animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
           <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Testimonio 3">
-          <p>"Profesionales atentos y comprometidos. ¡Recomendados!"</p>
+          <p>"Profesionales comprometidos y atentos. ¡Muy recomendados!"</p>
           <h4>- Andrea, 34 años</h4>
         </div>
       </div>
@@ -368,10 +406,19 @@
     <div class="container">
       <h2>Galería</h2>
       <div class="gallery-container animate__animated animate__fadeIn">
-        <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 1"></div>
-        <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 2"></div>
-        <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 3"></div>
-        <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 4"></div>
+        <!-- Agrega aquí más imágenes de alta calidad -->
+        <div class="gallery-item">
+          <img src="https://via.placeholder.com/800x500.png?text=Imagen+1" alt="Imagen 1">
+        </div>
+        <div class="gallery-item">
+          <img src="https://via.placeholder.com/800x500.png?text=Imagen+2" alt="Imagen 2">
+        </div>
+        <div class="gallery-item">
+          <img src="https://via.placeholder.com/800x500.png?text=Imagen+3" alt="Imagen 3">
+        </div>
+        <div class="gallery-item">
+          <img src="https://via.placeholder.com/800x500.png?text=Imagen+4" alt="Imagen 4">
+        </div>
       </div>
     </div>
   </section>
@@ -381,6 +428,7 @@
     <div class="container">
       <h2>Contacto</h2>
       <div class="contact-wrapper">
+        <!-- Información de contacto -->
         <div class="contact-info animate__animated animate__fadeInLeft">
           <h3>Información de Contacto</h3>
           <ul>
@@ -389,6 +437,7 @@
             <li><strong>Dirección:</strong> <a href="https://goo.gl/maps/wLhuDJaFefDF1MyQ7" target="_blank">Ver en Google Maps</a></li>
           </ul>
         </div>
+        <!-- Formulario de contacto -->
         <div class="contact-form animate__animated animate__fadeInRight">
           <h3>Envíanos un mensaje</h3>
           <form action="mailto:hersilia.ec@outlook.com" method="post" enctype="text/plain">
@@ -405,9 +454,19 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- MAPA (FULL WIDTH) -->
+  <div class="mapa">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!2m12!3m1!1sYOUR_MAP_EMBED_LINK_HERE" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
+  <!-- FOOTER CON REDES SOCIALES -->
   <footer>
     <div class="container">
+      <div class="socials">
+        <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
       <p>&copy; 2025 Hersilia. Todos los derechos reservados.</p>
       <p>Un legado de amor, un futuro de salud.</p>
     </div>
@@ -415,4 +474,3 @@
 
 </body>
 </html>
-
