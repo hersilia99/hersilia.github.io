@@ -19,7 +19,7 @@
       scroll-behavior: smooth;
     }
     a { text-decoration: none; color: inherit; transition: color 0.3s; }
-    a:hover { color: #0050D0; }
+    a:hover { color: #6683ff; }
     img { max-width: 100%; display: block; }
     .container { width: 90%; max-width: 1200px; margin: auto; padding: 20px; }
     
