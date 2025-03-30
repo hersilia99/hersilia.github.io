@@ -7,15 +7,14 @@
   <!-- Fuentes y Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-        integrity="sha512-V4f/9L8W8b0x9v6Otvw+u1PZ1p9sZyWmKl2B6QeV+75xS4kRZL8T+Tdz2U9DIs2PZ8f8w4G9iYHc+1cF4z/+I3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Animate.css para animaciones (opcional) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        integrity="sha512-V4f/9L8W8b0x9v6Otvw+u1PZ1p9sZyWmKl2B6QeV+75xS4kRZL8T+Tdz2U9DIs2PZ8f8w4G9iYHc+1cF4z/+I3A==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     /* RESET Y BASE */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Open Sans', sans-serif;
-      background-color: #F6F7FB;
+      background-color: #fff;
       color: #333;
       line-height: 1.6;
       scroll-behavior: smooth;
@@ -24,45 +23,62 @@
     a:hover { color: #0050D0; }
     img { max-width: 100%; display: block; }
     .container { width: 90%; max-width: 1200px; margin: auto; padding: 20px; }
-
-    /* HEADER */
+    
+    /* HEADER DINÁMICO */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
       z-index: 1000;
       background: rgba(255,255,255,0.98);
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: padding 0.3s, background 0.3s;
+      padding: 20px 0;
+      transition: padding 0.3s;
     }
-    header.shrink { padding: 5px 0; background: rgba(255,255,255,0.95); }
+    header.shrink { padding: 5px 0; }
     .header-inner {
       display: flex;
       flex-direction: column;
       align-items: center;
       transition: all 0.3s;
     }
-    .logo {
-      margin-bottom: 10px;
-      transition: all 0.3s;
-    }
-    /* El logo grande para el inicio */
+    .logo { margin-bottom: 10px; transition: all 0.3s; }
     .logo img { width: 150px; transition: width 0.3s; }
     header.shrink .logo img { width: 80px; }
+    /* MENÚ CON DROPDOWN */
     nav {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       font-weight: 600;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      position: relative;
     }
     nav a { padding: 5px 10px; color: #0025FC; border-radius: 4px; }
     nav a:hover { background: #e0eaff; }
-    /* Espaciado para que el contenido no quede oculto debajo del header */
+    .dropdown { position: relative; }
+    .dropdown .dropbtn { cursor: pointer; }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 35px;
+      left: 0;
+      background: #fff;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      border-radius: 4px;
+      z-index: 1001;
+      min-width: 180px;
+    }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 15px;
+      color: #0025FC;
+    }
+    .dropdown-content a:hover { background: #e0eaff; }
+    .dropdown:hover .dropdown-content { display: block; }
+    /* Espacio para contenido tras header fijo */
     .spacer { height: 110px; }
-
+    
     /* BOTÓN VOLVER ARRIBA */
     #backToTop {
       position: fixed;
@@ -77,12 +93,13 @@
       cursor: pointer;
       z-index: 1100;
     }
-
-    /* HERO */
+    
+    /* SECCIÓN HERO */
     .hero {
       position: relative;
       height: 90vh;
-      background: url('https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg') center center/cover no-repeat;
+      /* Fondo alternativo para destacar la frase */
+      background: url('https://via.placeholder.com/1600x900/000033/ffffff?text=Fondo+Hero') center center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -94,7 +111,7 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,37,252,0.4);
+      background: rgba(0,0,0,0.5);
       z-index: 1;
     }
     .hero-content {
@@ -105,7 +122,7 @@
     }
     .hero h1 { font-size: 3em; margin-bottom: 15px; }
     .hero p { font-size: 1.4em; }
-
+    
     /* SECCIONES GENERALES */
     section { padding: 80px 20px; }
     section h2 {
@@ -128,7 +145,7 @@
       border-radius: 2px;
     }
     section p { font-size: 1.1em; margin-bottom: 20px; text-align: justify; }
-
+    
     /* SOBRE NOSOTROS */
     #nosotros .about-grid {
       display: flex;
@@ -147,8 +164,36 @@
     }
     #nosotros .about-grid img:hover { transform: scale(1.03); }
     #nosotros .about-text { flex: 1; min-width: 300px; max-width: 600px; }
-
-    /* SERVICIOS */
+    
+    /* MISIÓN Y VISIÓN */
+    #mision-vision {
+      background: #e0eaff;
+      padding: 60px 20px;
+    }
+    #mision-vision .mv-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+    }
+    #mision-vision .mv-item {
+      background: #fff;
+      flex: 1;
+      min-width: 280px;
+      max-width: 500px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    #mision-vision .mv-item h3 {
+      color: #0025FC;
+      margin-bottom: 10px;
+      font-size: 1.5em;
+    }
+    #mision-vision .mv-item p { font-size: 1.1em; }
+    
+    /* SERVICIOS CON SUBOPCIONES */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -165,7 +210,7 @@
     .service:hover { transform: scale(1.02); }
     .service i { font-size: 2.5em; color: #0045a0; margin-bottom: 15px; }
     .service h3 { font-size: 1.3em; color: #0025FC; margin-bottom: 10px; }
-
+    
     /* TESTIMONIOS */
     .testimonials-container {
       display: flex;
@@ -192,7 +237,7 @@
     }
     .testimonial p { font-size: 1em; margin-bottom: 10px; }
     .testimonial h4 { font-size: 1.1em; font-weight: 600; color: #0025FC; }
-
+    
     /* GALERÍA */
     .gallery-container {
       display: grid;
@@ -206,7 +251,7 @@
       transition: transform 0.3s;
     }
     .gallery-item:hover { transform: scale(1.02); }
-
+    
     /* CONTACTO */
     .contact-wrapper {
       display: flex;
@@ -246,8 +291,8 @@
       transition: background 0.3s;
     }
     .contact-form button:hover { background: #001bb8; }
-
-    /* MAPA (ancho completo) */
+    
+    /* MAPA FULL WIDTH */
     .mapa {
       width: 100%;
       margin: 40px 0;
@@ -257,35 +302,39 @@
       height: 450px;
       border: 0;
     }
-
+    
     /* FOOTER CON REDES SOCIALES */
     footer {
-      background: #0025FC;
-      color: #fff;
+      background: #f0f0f0;
+      padding: 20px;
       text-align: center;
-      padding: 30px 20px;
-      margin-top: 40px;
+      font-size: 0.9em;
+      color: #555;
     }
-    footer p { margin: 5px 0; font-size: 0.95em; }
     .socials {
-      margin-top: 15px;
+      text-align: center;
+      margin: 20px 0;
     }
     .socials a {
       margin: 0 10px;
-      font-size: 1.5em;
-      color: #fff;
-      transition: color 0.3s;
+      font-size: 1.3em;
+      font-weight: 600;
+      color: #0025FC;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
-    .socials a:hover { color: #c6c6c6; }
-
-    /* RESPONSIVE AJUSTES */
+    .socials a:hover { color: #0050D0; }
+    
+    /* RESPONSIVIDAD */
     @media (max-width: 768px) {
       .about-grid { flex-direction: column; text-align: center; }
       nav { flex-direction: column; gap: 10px; }
+      .dropdown-content { position: static; box-shadow: none; }
     }
   </style>
   <script>
-    // Header: agrega clase "shrink" al hacer scroll
+    // Agregar clase "shrink" al header y mostrar botón de volver arriba
     window.addEventListener("scroll", function() {
       const header = document.querySelector("header");
       if (window.scrollY > 100) {
@@ -293,7 +342,6 @@
       } else {
         header.classList.remove("shrink");
       }
-      // Botón volver arriba
       const backBtn = document.getElementById("backToTop");
       backBtn.style.display = window.scrollY > 300 ? "block" : "none";
     });
@@ -304,15 +352,25 @@
 </head>
 <body>
 
-  <!-- HEADER CON LOGO DINÁMICO -->
+  <!-- HEADER -->
   <header id="inicio">
     <div class="container header-inner">
       <div class="logo">
+        <!-- Se recomienda utilizar una imagen de logo de alta calidad -->
         <a href="#inicio"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Logo Hersilia"></a>
       </div>
       <nav>
         <a href="#nosotros">Nosotros</a>
-        <a href="#servicios">Servicios</a>
+        <div class="dropdown">
+          <a href="#servicios" class="dropbtn">Servicios</a>
+          <div class="dropdown-content">
+            <a href="#atencion">Atención Integral</a>
+            <a href="#talleres">Talleres</a>
+            <a href="#capacitaciones">Capacitaciones</a>
+            <a href="#cursos">Cursos</a>
+          </div>
+        </div>
+        <a href="#mision-vision">Misión y Visión</a>
         <a href="#testimonios">Testimonios</a>
         <a href="#galeria">Galería</a>
         <a href="#contacto">Contacto</a>
@@ -326,9 +384,11 @@
 
   <!-- SECCIÓN HERO -->
   <section class="hero">
-    <div class="container hero-content animate__animated animate__fadeInDown">
-      <h1>Un Legado de Amor, un Futuro de Salud</h1>
-      <p>Apoyamos la salud mental con profesionales comprometidos.</p>
+    <div class="container hero-content">
+      <h1>Un legado de amor, un futuro de salud</h1>
+      <!-- Imagen de la cara o elemento gráfico que complemente la frase -->
+      <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Imagen destacada" style="margin:20px auto; max-width:300px;">
+      <p>En HERSILIA brindamos apoyo integral en salud mental, con profesionales comprometidos con tu bienestar.</p>
     </div>
   </section>
 
@@ -336,42 +396,52 @@
   <section id="nosotros">
     <div class="container">
       <h2>Sobre Nosotros</h2>
-      <div class="about-grid animate__animated animate__fadeInUp">
-        <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Equipo Hersilia">
-        <div class="about-text">
-          <h3>Nuestra Historia</h3>
-          <p>
-            Hersilia Fundación nace con la visión de transformar vidas mediante atención psicológica y acompañamiento emocional. Nuestro equipo multidisciplinario ofrece terapias individuales, familiares y talleres para potenciar el bienestar.
-          </p>
+      <p><strong>Nuestra Historia:</strong> Hersilia nace con la visión de transformar vidas a través de la atención psicológica y el acompañamiento emocional. Desarrollamos programas para niños, adolescentes, adultos y la tercera edad.</p>
+      <p><strong>Nuestro Equipo:</strong> Profesionales expertos en terapia individual, de pareja y familiar, además de talleres de desarrollo personal.</p>
+    </div>
+  </section>
+
+  <!-- MISIÓN Y VISIÓN -->
+  <section id="mision-vision">
+    <div class="container">
+      <h2>Misión y Visión</h2>
+      <div class="mv-grid">
+        <div class="mv-item">
+          <h3>Misión</h3>
+          <p>Brindar atención psicológica de calidad, promoviendo el bienestar integral con un enfoque humano y ético.</p>
+        </div>
+        <div class="mv-item">
+          <h3>Visión</h3>
+          <p>Ser un referente nacional en salud mental, impactando positivamente la calidad de vida de las personas y familias.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICIOS -->
+  <!-- SERVICIOS CON SUBOPCIONES -->
   <section id="servicios">
     <div class="container">
       <h2>Servicios y Beneficios</h2>
       <div class="services-grid">
-        <div class="service animate__animated animate__bounceIn">
+        <div class="service">
           <i class="fa fa-heartbeat"></i>
-          <h3>Atención Integral</h3>
+          <h3 id="atencion">Atención Integral</h3>
           <p>Soluciones personalizadas para cada necesidad.</p>
         </div>
-        <div class="service animate__animated animate__bounceIn" style="animation-delay: 0.2s;">
+        <div class="service">
           <i class="fa fa-users"></i>
-          <h3>Trabajo Familiar</h3>
-          <p>Fortalecemos vínculos afectivos y la comunicación en casa.</p>
+          <h3 id="talleres">Talleres</h3>
+          <p>Espacios para desarrollar habilidades y fortalecer vínculos.</p>
         </div>
-        <div class="service animate__animated animate__bounceIn" style="animation-delay: 0.4s;">
-          <i class="fa fa-lightbulb"></i>
-          <h3>Desarrollo Personal</h3>
-          <p>Estrategias innovadoras para el bienestar emocional.</p>
+        <div class="service">
+          <i class="fa fa-chalkboard-teacher"></i>
+          <h3 id="capacitaciones">Capacitaciones</h3>
+          <p>Formación continua para el crecimiento personal y profesional.</p>
         </div>
-        <div class="service animate__animated animate__bounceIn" style="animation-delay: 0.6s;">
-          <i class="fa fa-comments"></i>
-          <h3>Consultas Online</h3>
-          <p>Asesoría profesional desde la comodidad de tu hogar.</p>
+        <div class="service">
+          <i class="fa fa-graduation-cap"></i>
+          <h3 id="cursos">Cursos</h3>
+          <p>Programas educativos para ampliar conocimientos y habilidades.</p>
         </div>
       </div>
     </div>
@@ -381,23 +451,18 @@
   <section id="testimonios">
     <div class="container">
       <h2>Testimonios</h2>
-      <div class="testimonials-container">
-        <div class="testimonial animate__animated animate__fadeInUp">
-          <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Testimonio 1">
-          <p>"Gracias a Hersilia encontré la ayuda para superar mis miedos."</p>
-          <h4>- María, 28 años</h4>
-        </div>
-        <div class="testimonial animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-          <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Testimonio 2">
-          <p>"El acompañamiento familiar transformó nuestra dinámica en casa."</p>
-          <h4>- Carlos, 45 años</h4>
-        </div>
-        <div class="testimonial animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
-          <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Testimonio 3">
-          <p>"Profesionales comprometidos y atentos. ¡Muy recomendados!"</p>
-          <h4>- Andrea, 34 años</h4>
-        </div>
-      </div>
+      <blockquote>
+        "Gracias a HERSILIA encontré la ayuda que necesitaba para superar mis miedos y recuperar mi confianza."
+        <strong>- María, 28 años</strong>
+      </blockquote>
+      <blockquote>
+        "El acompañamiento psicológico mejoró la comunicación en mi familia. ¡Lo recomiendo al 100%!"
+        <strong>- Carlos, 45 años</strong>
+      </blockquote>
+      <blockquote>
+        "Excelente equipo de profesionales, siempre dispuestos a escuchar y brindar la mejor orientación."
+        <strong>- Andrea, 34 años</strong>
+      </blockquote>
     </div>
   </section>
 
@@ -405,20 +470,12 @@
   <section id="galeria">
     <div class="container">
       <h2>Galería</h2>
-      <div class="gallery-container animate__animated animate__fadeIn">
-        <!-- Agrega aquí más imágenes de alta calidad -->
-        <div class="gallery-item">
-          <img src="https://via.placeholder.com/800x500.png?text=Imagen+1" alt="Imagen 1">
-        </div>
-        <div class="gallery-item">
-          <img src="https://via.placeholder.com/800x500.png?text=Imagen+2" alt="Imagen 2">
-        </div>
-        <div class="gallery-item">
-          <img src="https://via.placeholder.com/800x500.png?text=Imagen+3" alt="Imagen 3">
-        </div>
-        <div class="gallery-item">
-          <img src="https://via.placeholder.com/800x500.png?text=Imagen+4" alt="Imagen 4">
-        </div>
+      <div class="gallery-container">
+        <!-- Se usa el mismo enlace para las imágenes; reemplaza por las que prefieras -->
+        <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 1"></div>
+        <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 2"></div>
+        <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 3"></div>
+        <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 4"></div>
       </div>
     </div>
   </section>
@@ -428,23 +485,19 @@
     <div class="container">
       <h2>Contacto</h2>
       <div class="contact-wrapper">
-        <!-- Información de contacto -->
-        <div class="contact-info animate__animated animate__fadeInLeft">
+        <div class="contact-info">
           <h3>Información de Contacto</h3>
-          <ul>
-            <li><strong>Teléfono:</strong> <a href="https://wa.me/593981811831" target="_blank">(098) 181-1831 (WhatsApp)</a></li>
-            <li><strong>Email:</strong> <a href="mailto:hersilia.ec@outlook.com">hersilia.ec@outlook.com</a></li>
-            <li><strong>Dirección:</strong> <a href="https://goo.gl/maps/wLhuDJaFefDF1MyQ7" target="_blank">Ver en Google Maps</a></li>
-          </ul>
+          <p><strong>Teléfono:</strong> <a href="https://wa.me/593981811831" target="_blank">0981811831 (WhatsApp)</a></p>
+          <p><strong>Email:</strong> <a href="mailto:hersilia.ec@outlook.com">hersilia.ec@outlook.com</a></p>
+          <p><strong>Dirección:</strong> Hersilia Centro Psicológico Integral</p>
         </div>
-        <!-- Formulario de contacto -->
-        <div class="contact-form animate__animated animate__fadeInRight">
+        <div class="contact-form">
           <h3>Envíanos un mensaje</h3>
           <form action="mailto:hersilia.ec@outlook.com" method="post" enctype="text/plain">
             <input type="text" name="nombre" placeholder="Nombre completo" required>
             <input type="email" name="correo" placeholder="Correo electrónico" required>
             <input type="tel" name="telefono" placeholder="Número de teléfono">
-            <input type="text" name="asunto" placeholder="Asunto">
+            <input type="text" name="asunto" placeholder="Asunto" required>
             <textarea name="mensaje" rows="5" placeholder="Tu mensaje" required></textarea>
             <button type="submit">Enviar Mensaje</button>
             <button type="button" onclick="window.open('https://wa.me/593981811831?text=Hola%20Hersilia,%20deseo%20informaci%C3%B3n','_blank')">Enviar por WhatsApp</button>
@@ -454,23 +507,31 @@
     </div>
   </section>
 
-  <!-- MAPA (FULL WIDTH) -->
+  <!-- MAPA FULL WIDTH -->
   <div class="mapa">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!2m12!3m1!1sYOUR_MAP_EMBED_LINK_HERE" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7537095954717!2d-78.45234842503537!3d-0.32607239967071955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d5bd00024aabd9%3A0x483eb49bac9ebcba!2sHersilia%20Centro%20Psicol%C3%B3gico%20Integral!5e0!3m2!1ses-419!2sec!4v1743294599307!5m2!1ses-419!2sec" 
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
 
   <!-- FOOTER CON REDES SOCIALES -->
   <footer>
     <div class="container">
       <div class="socials">
-        <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/people/Centro-Psicol%C3%B3gico-Integral-Hersilia/100064794828756/" target="_blank" aria-label="Facebook">
+          <i class="fab fa-facebook"></i> Facebook
+        </a>
+        <a href="https://www.instagram.com/hersilia.ec/" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://www.tiktok.com/@hersilia.ec" target="_blank" aria-label="TikTok">
+          <i class="fab fa-tiktok"></i> TikTok
+        </a>
       </div>
-      <p>&copy; 2025 Hersilia. Todos los derechos reservados.</p>
+      <p>&copy; 2025 Hersilia - Centro Psicológico Integral</p>
       <p>Un legado de amor, un futuro de salud.</p>
     </div>
   </footer>
 
 </body>
 </html>
+
