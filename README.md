@@ -1,39 +1,3 @@
-<?php
-/********************************************
- * PROCESAMIENTO DEL FORMULARIO (PHP)
- ********************************************/
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // 1. Sanitizar los datos del formulario
-    $nombre   = htmlspecialchars($_POST["name"] ?? '');
-    $correo   = htmlspecialchars($_POST["email"] ?? '');
-    $telefono = htmlspecialchars($_POST["phone"] ?? '');
-    $asunto   = htmlspecialchars($_POST["subject"] ?? '');
-    $mensaje  = htmlspecialchars($_POST["message"] ?? '');
-
-    // 2. Configurar el correo
-    $destinatario = "tucorreo@ejemplo.com"; // <-- Reemplaza con tu correo real
-    $titulo       = "Nuevo mensaje desde la web de Hersilia";
-
-    // Cuerpo del correo
-    $contenido    = "Nombre: $nombre\n"
-                  . "Correo: $correo\n"
-                  . "Teléfono: $telefono\n"
-                  . "Asunto: $asunto\n"
-                  . "Mensaje:\n$mensaje";
-
-    // Cabeceras
-    $headers      = "From: $correo\r\n"
-                  . "Reply-To: $correo\r\n"
-                  . "X-Mailer: PHP/" . phpversion();
-
-    // 3. Enviar el correo
-    if (mail($destinatario, $titulo, $contenido, $headers)) {
-        $mensaje_exito = "¡Mensaje enviado exitosamente!";
-    } else {
-        $mensaje_exito = "Hubo un error al enviar el mensaje. Inténtalo de nuevo.";
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -47,9 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         integrity="sha512-pVn+7Wn6O0Kly2Nw+1FxXb4RxjPdP/vp3+SW7jCkZCEwZt2z9hFJAZ4xGXwxh6+8ZldLqkVXhT++5IuHnF3n0g==" 
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    /********************************************
-     * ESTILOS GENERALES
-     ********************************************/
+    /* RESET Y ESTILOS GLOBALES */
     * {
       margin: 0; padding: 0; box-sizing: border-box;
     }
@@ -58,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       background-color: #F6F7FB;
       color: #333;
       line-height: 1.6;
+      scroll-behavior: smooth;
     }
     a {
       text-decoration: none;
@@ -68,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       color: #0050D0;
     }
     img {
-      display: block;
       max-width: 100%;
+      display: block;
     }
     .container {
       width: 90%;
@@ -77,51 +40,55 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       margin: auto;
       padding: 20px;
     }
-    h1, h2, h3 {
-      font-weight: 600;
-    }
-
-    /********************************************
-     * HEADER Y NAVBAR
-     ********************************************/
+    
+    /* HEADER - LOGO CENTRADO */
     header {
-      background-color: #fff;
-      border-bottom: 3px solid #0025FC;
       position: sticky;
       top: 0;
       z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px 0;
     }
     .header-inner {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      padding: 10px 0;
+      justify-content: center;
+      gap: 10px;
     }
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
     }
     .logo img {
-      width: 60px; /* Ajusta el tamaño del logo */
+      width: 100px;
+      height: auto;
     }
     nav {
       display: flex;
+      flex-wrap: wrap;
       gap: 20px;
       font-weight: 600;
+      margin-top: 10px;
     }
-
-    /********************************************
-     * SECCIÓN HERO
-     ********************************************/
+    nav a {
+      color: #0025FC;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+    nav a:hover {
+      background-color: #e0eaff;
+    }
+    
+    /* SECCIÓN HERO */
     .hero {
+      position: relative;
       background-color: #0025FC;
       color: #fff;
       text-align: center;
-      padding: 80px 20px;
-      position: relative;
+      padding: 120px 20px 80px;
       overflow: hidden;
     }
     .hero::after {
@@ -129,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0, 37, 252, 0.4);
+      background: rgba(0,37,252,0.4);
       z-index: 1;
     }
     .hero-content {
@@ -140,23 +107,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       animation: fadeIn 1.5s ease-in-out;
     }
     .hero h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
+      font-size: 2.8em;
+      margin-bottom: 15px;
     }
     .hero p {
-      font-size: 1.2em;
+      font-size: 1.3em;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    /********************************************
-     * SECCIONES GENERALES
-     ********************************************/
+    
+    /* SECCIONES GENERALES */
     section {
-      padding: 60px 20px;
-      margin-bottom: 20px;
+      padding: 80px 20px;
+      margin-bottom: 40px;
     }
     section h2 {
       text-align: center;
@@ -172,26 +137,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       left: 50%;
       transform: translateX(-50%);
       bottom: -5px;
-      width: 50%;
+      width: 60%;
       height: 3px;
       background-color: #0025FC;
       border-radius: 2px;
     }
     section p {
       font-size: 1.1em;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       text-align: justify;
     }
-
-    /********************************************
-     * SOBRE NOSOTROS
-     ********************************************/
+    
+    /* SOBRE NOSOTROS */
     #nosotros .about-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 40px;
       align-items: center;
       justify-content: center;
+      margin-top: 30px;
     }
     #nosotros .about-grid img {
       flex: 1;
@@ -209,35 +173,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       min-width: 280px;
       max-width: 600px;
     }
-
-    /********************************************
-     * SECCIÓN CAMPAÑAS Y TALLERES
-     ********************************************/
-    .campaigns-talleres {
+    
+    /* CAMPANAS Y TALLERES */
+    #campanas .card-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-top: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
     }
-    .campaigns-talleres > div {
+    #campanas .card {
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    #campanas .card:hover {
+      transform: scale(1.02);
+    }
+    #campanas .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    #campanas .card-content {
       padding: 20px;
       text-align: center;
     }
-    .campaigns-talleres img {
-      margin-bottom: 15px;
-      border-radius: 8px;
-      transition: transform 0.3s ease;
+    #campanas .card-content h3 {
+      color: #0025FC;
+      margin-bottom: 10px;
     }
-    .campaigns-talleres img:hover {
-      transform: scale(1.02);
-    }
-
-    /********************************************
-     * MISIÓN, VISIÓN, VALORES
-     ********************************************/
+    
+    /* MISIÓN, VISIÓN, VALORES */
     .mvv {
       display: flex;
       flex-wrap: wrap;
@@ -259,16 +227,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       color: #0025FC;
       margin-bottom: 10px;
     }
-
-    /********************************************
-     * TESTIMONIOS
-     ********************************************/
+    
+    /* TESTIMONIOS */
     #testimonios .testimonials-container {
       display: flex;
       flex-wrap: wrap;
       gap: 30px;
       justify-content: center;
-      margin-top: 20px;
+      margin-top: 30px;
     }
     .testimonial {
       background: #fff;
@@ -278,29 +244,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       min-width: 250px;
       max-width: 350px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      text-align: justify;
+      text-align: center;
       position: relative;
     }
     .testimonial img {
-      width: 100%;
-      border-radius: 8px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: auto;
+      margin-bottom: 15px;
+    }
+    .testimonial p {
+      font-size: 1em;
       margin-bottom: 10px;
     }
     .testimonial h4 {
       font-size: 1.1em;
       font-weight: 600;
       color: #0025FC;
-      text-align: right;
     }
-
-    /********************************************
-     * GALERÍA
-     ********************************************/
+    
+    /* GALERÍA */
     #galeria .gallery-container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
-      margin-top: 20px;
+      margin-top: 30px;
     }
     .gallery-item {
       overflow: hidden;
@@ -311,16 +281,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     .gallery-item:hover {
       transform: scale(1.02);
     }
-
-    /********************************************
-     * CONTACTO
-     ********************************************/
+    
+    /* CONTACTO */
     #contacto .contact-wrapper {
       display: flex;
       flex-wrap: wrap;
       gap: 40px;
       justify-content: center;
       align-items: flex-start;
+      margin-top: 30px;
     }
     .contact-info, .contact-form {
       flex: 1;
@@ -368,25 +337,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     .contact-form button:hover {
       background-color: #001bb8;
     }
-    .alert {
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 4px;
-      font-weight: 600;
-      text-align: center;
-    }
-    .alert-success {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .alert-error {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-
-    /********************************************
-     * MAPA EMBEBIDO
-     ********************************************/
+    
+    /* MAPA */
     #mapa {
       width: 100%;
       max-width: 1200px;
@@ -399,12 +351,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       width: 100%;
       height: 400px;
       border: none;
-      display: block;
     }
-
-    /********************************************
-     * FOOTER
-     ********************************************/
+    
+    /* FOOTER */
     footer {
       background-color: #0025FC;
       color: #fff;
@@ -415,13 +364,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       margin: 5px 0;
       font-size: 0.95em;
     }
-
-    /********************************************
-     * RESPONSIVIDAD
-     ********************************************/
+    
+    /* RESPONSIVIDAD */
     @media (max-width: 768px) {
       .header-inner {
-        flex-direction: column;
+        padding: 10px;
       }
       .hero h1 {
         font-size: 2em;
@@ -429,43 +376,48 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       .hero p {
         font-size: 1em;
       }
-      .campaigns-talleres {
+      #campanas .card-grid {
         grid-template-columns: 1fr;
-      }
-      nav {
-        margin-top: 10px;
       }
     }
   </style>
+  <script>
+    // Script para scroll al top (opcional)
+    window.addEventListener("scroll", function() {
+      if (window.scrollY > 100) {
+        document.querySelector("header").classList.add("scrolled");
+      } else {
+        document.querySelector("header").classList.remove("scrolled");
+      }
+    });
+  </script>
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
+  <!-- HEADER CON LOGO CENTRADO -->
+  <header id="inicio">
     <div class="container header-inner">
       <div class="logo">
-        <!-- LOGO (Imagen) -->
-        <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Logo Hersilia">
+        <a href="#inicio"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Logo Hersilia"></a>
       </div>
       <nav>
-        <a href="#inicio">Inicio</a>
         <a href="#nosotros">Nosotros</a>
-        <a href="#campanias">Campañas</a>
+        <a href="#campanas">Campañas</a>
         <a href="#testimonios">Testimonios</a>
         <a href="#galeria">Galería</a>
         <a href="#contacto">Contacto</a>
       </nav>
     </div>
   </header>
-
+  
   <!-- SECCIÓN HERO -->
-  <section class="hero" id="inicio">
+  <section class="hero">
     <div class="container hero-content">
-      <h1>Un legado de amor, un futuro de salud</h1>
-      <p>En HERSILIA nos dedicamos a brindar apoyo integral en salud mental, con profesionales comprometidos con tu bienestar y el de tu familia.</p>
+      <h1>Un Legado de Amor, un Futuro de Salud</h1>
+      <p>En HERSILIA brindamos apoyo integral en salud mental con profesionales comprometidos con tu bienestar.</p>
     </div>
   </section>
-
-  <!-- SECCIÓN SOBRE NOSOTROS -->
+  
+  <!-- SOBRE NOSOTROS -->
   <section id="nosotros">
     <div class="container">
       <h2>Sobre Nosotros</h2>
@@ -474,77 +426,80 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="about-text">
           <h3>Nuestra Historia</h3>
           <p>
-            HERSILIA nace con la visión de transformar vidas a través de la atención psicológica y el acompañamiento emocional.
-            Nuestro equipo multidisciplinario ofrece terapias individuales, de pareja y familiares, así como talleres y capacitaciones.
+            HERSILIA nace con la visión de transformar vidas mediante atención psicológica y acompañamiento emocional. Nuestro equipo multidisciplinario se encarga de terapias individuales, de pareja, familiares, talleres y capacitaciones para potenciar el bienestar.
           </p>
           <div class="mvv">
             <div class="mvv-item">
               <h3>Misión</h3>
-              <p>Brindar atención psicológica de calidad, promoviendo la salud mental y el bienestar integral.</p>
+              <p>Proveer atención psicológica de excelencia que fomente el bienestar y salud mental.</p>
             </div>
             <div class="mvv-item">
               <h3>Visión</h3>
-              <p>Ser un referente nacional en la prevención y promoción de la salud mental, mejorando la calidad de vida de las personas.</p>
+              <p>Ser el referente nacional en salud mental, transformando la vida de comunidades.</p>
             </div>
             <div class="mvv-item">
               <h3>Valores</h3>
-              <p>Compasión, Respeto, Honestidad y Excelencia guían nuestro quehacer diario.</p>
+              <p>Compasión, Integridad, Respeto y Excelencia en cada acción.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- SECCIÓN CAMPAÑAS Y TALLERES -->
-  <section id="campanias">
+  
+  <!-- CAMPANAS Y TALLERES -->
+  <section id="campanas">
     <div class="container">
       <h2>Campañas y Talleres</h2>
-      <p style="text-align:center;">Descubre nuestras iniciativas enfocadas en el bienestar emocional y la prevención.</p>
-      <div class="campaigns-talleres">
-        <div>
-          <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Campaña 1">
-          <h3>Campaña de Prevención</h3>
-          <p>Un espacio para concientizar sobre la importancia de la salud mental y la prevención de trastornos psicológicos.</p>
+      <p style="text-align: center;">Iniciativas y espacios dinámicos para fomentar el bienestar emocional.</p>
+      <div class="card-grid">
+        <div class="card">
+          <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Campaña de Prevención">
+          <div class="card-content">
+            <h3>Campaña de Prevención</h3>
+            <p>Concientizamos sobre la importancia de la salud mental y la prevención de trastornos psicológicos.</p>
+          </div>
         </div>
-        <div>
-          <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Taller 1">
-          <h3>Taller de Bienestar</h3>
-          <p>Talleres prácticos para desarrollar habilidades emocionales, manejo del estrés y crecimiento personal.</p>
+        <div class="card">
+          <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Taller de Bienestar">
+          <div class="card-content">
+            <h3>Taller de Bienestar</h3>
+            <p>Espacios prácticos para desarrollar habilidades emocionales y manejo del estrés.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- SECCIÓN TESTIMONIOS -->
+  
+  <!-- TESTIMONIOS -->
   <section id="testimonios">
     <div class="container">
       <h2>Testimonios</h2>
       <div class="testimonials-container">
         <div class="testimonial">
           <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Testimonio 1">
-          <p>"Gracias a HERSILIA, encontré la ayuda que necesitaba para superar mis miedos y recuperar mi confianza."</p>
+          <p>"Gracias a HERSILIA, encontré la ayuda para superar mis miedos y recuperar mi confianza."</p>
           <h4>- María, 28 años</h4>
         </div>
         <div class="testimonial">
           <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Testimonio 2">
-          <p>"El acompañamiento psicológico mejoró la comunicación en mi familia. ¡Lo recomiendo al 100%!"</p>
+          <p>"El acompañamiento psicológico cambió la dinámica en mi familia. ¡Lo recomiendo al 100%!"</p>
           <h4>- Carlos, 45 años</h4>
         </div>
         <div class="testimonial">
           <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Testimonio 3">
-          <p>"Excelente equipo de profesionales, siempre dispuestos a escuchar y brindar la mejor orientación."</p>
+          <p>"Un equipo excepcional, siempre dispuesto a escuchar y brindar la mejor orientación."</p>
           <h4>- Andrea, 34 años</h4>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- SECCIÓN GALERÍA -->
+  
+  <!-- GALERÍA -->
   <section id="galeria">
     <div class="container">
       <h2>Galería</h2>
-      <p style="text-align:center;">Momentos destacados en nuestros eventos y talleres.</p>
+      <p style="text-align: center;">Momentos destacados de nuestros eventos y actividades.</p>
       <div class="gallery-container">
         <div class="gallery-item">
           <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 1">
@@ -561,13 +516,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       </div>
     </div>
   </section>
-
-  <!-- SECCIÓN CONTACTO -->
+  
+  <!-- CONTACTO -->
   <section id="contacto">
     <div class="container">
       <h2>Contacto</h2>
       <div class="contact-wrapper">
-        <!-- Información de contacto -->
         <div class="contact-info">
           <h3>Información de Contacto</h3>
           <ul>
@@ -581,63 +535,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </li>
             <li>
               <strong>Dirección:</strong>
-              <a href="https://goo.gl/maps/wLhuDJaFefDF1MyQ7" target="_blank">
-                Ver en Google Maps
-              </a>
+              <a href="https://goo.gl/maps/wLhuDJaFefDF1MyQ7" target="_blank">Ver en Google Maps</a>
             </li>
             <li>
               <strong>Facebook:</strong>
-              <a href="https://www.facebook.com/centropsicologicointegralhersilia" target="_blank">
-                Centro Psicológico Integral Hersilia
-              </a>
+              <a href="https://www.facebook.com/centropsicologicointegralhersilia" target="_blank">Centro Psicológico Integral Hersilia</a>
             </li>
             <li>
               <strong>Instagram:</strong>
-              <a href="https://www.instagram.com/hersilia.ec" target="_blank">
-                @hersilia.ec
-              </a>
+              <a href="https://www.instagram.com/hersilia.ec" target="_blank">@hersilia.ec</a>
             </li>
             <li>
               <strong>TikTok:</strong>
-              <a href="https://www.tiktok.com/@hersilia.ec" target="_blank">
-                @hersilia.ec
-              </a>
+              <a href="https://www.tiktok.com/@hersilia.ec" target="_blank">@hersilia.ec</a>
             </li>
           </ul>
         </div>
-        <!-- Formulario de contacto -->
         <div class="contact-form">
-          <h3>Envíanos un mensaje</h3>
-          <?php if (isset($mensaje_exito)): ?>
-            <div class="alert <?php echo ($mensaje_exito === '¡Mensaje enviado exitosamente!') ? 'alert-success' : 'alert-error'; ?>">
-              <?php echo $mensaje_exito; ?>
-            </div>
-          <?php endif; ?>
-          <form action="#contacto" method="POST">
-            <input type="text"   name="name"    placeholder="Nombre completo"    required>
-            <input type="email"  name="email"   placeholder="Correo electrónico" required>
-            <input type="tel"    name="phone"   placeholder="Número de teléfono">
-            <input type="text"   name="subject" placeholder="Asunto">
+          <h3>Envíanos un Mensaje</h3>
+          <form action="mailto:hersilia.ec@outlook.com" method="post" enctype="text/plain">
+            <input type="text" name="name" placeholder="Nombre completo" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="tel" name="phone" placeholder="Número de teléfono">
+            <input type="text" name="subject" placeholder="Asunto">
             <textarea name="message" rows="5" placeholder="Tu mensaje" required></textarea>
             <button type="submit">Enviar Mensaje</button>
-            <button type="button" 
-                    onclick="window.open('https://wa.me/593981811831?text=Hola%20HERSILIA,%20deseo%20información','_blank')">
-              Enviar por WhatsApp
-            </button>
+            <button type="button" onclick="window.open('https://wa.me/593981811831?text=Hola%20HERSILIA,%20deseo%20información','_blank')">Enviar por WhatsApp</button>
           </form>
         </div>
       </div>
     </div>
   </section>
-
+  
   <!-- MAPA EMBEBIDO -->
   <div id="mapa">
     <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7537095953417!2d-78.44977349999999!3d-0.3260724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d5bd00024aabd9%3A0x483eb49bac9ebcba!2sHersilia%20Centro%20Psicol%C3%B3gico%20Integral!5e0!3m2!1ses-419!2sec!4v1743216528010!5m2!1ses-419!2sec"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7537095953417!2d-78.44977349999999!3d-0.3260724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d5bd00024aabd9%3A0x483eb49bac9ebcba!2sHersilia%20Centro%20Psicol%C3%B3gico%20Integral!5e0!3m2!1ses-419!2sec!4v1743216528010!5m2!1ses-419!2sec" 
       allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
     </iframe>
   </div>
-
+  
   <!-- FOOTER -->
   <footer>
     <p>&copy; 2025 HERSILIA. Todos los derechos reservados.</p>
