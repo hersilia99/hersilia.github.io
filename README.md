@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HERSILIA – Centro Psicológico Integral</title>
-  <!-- Fuente y animaciones -->
+  <!-- Fuentes y Animate.css para animaciones -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <style>
-    /* RESET Y ESTILOS GLOBALES */
+    /* RESET Y BASE */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Open Sans', sans-serif;
@@ -17,12 +17,12 @@
       line-height: 1.6;
       scroll-behavior: smooth;
     }
-    a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+    a { text-decoration: none; color: inherit; transition: color 0.3s; }
     a:hover { color: #0050D0; }
     img { max-width: 100%; display: block; }
     .container { width: 90%; max-width: 1200px; margin: auto; padding: 20px; }
-    
-    /* HEADER CON LOGO CENTRADO */
+
+    /* HEADER */
     header {
       position: sticky;
       top: 0;
@@ -47,43 +47,52 @@
       font-weight: 600;
       text-transform: uppercase;
     }
-    nav a {
-      color: #0025FC;
-      padding: 5px 10px;
+    nav a { padding: 5px 10px; color: #0025FC; border-radius: 4px; }
+    nav a:hover { background: #e0eaff; }
+
+    /* BOTÓN VOLVER ARRIBA */
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      padding: 10px 15px;
+      background: #0025FC;
+      color: #fff;
+      border: none;
       border-radius: 4px;
+      cursor: pointer;
+      z-index: 1001;
     }
-    nav a:hover { background-color: #e0eaff; }
-    
-    /* SECCIÓN HERO */
+
+    /* HERO */
     .hero {
       position: relative;
-      background: url('https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg') no-repeat center center/cover;
-      color: #fff;
+      height: 80vh;
+      background: url('https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg') center center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 120px 20px 80px;
+      color: #fff;
     }
     .hero::after {
       content: "";
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0, 37, 252, 0.4);
+      background: rgba(0,37,252,0.4);
       z-index: 1;
     }
     .hero-content {
       position: relative;
       z-index: 2;
       max-width: 800px;
-      margin: auto;
-      animation: fadeIn 1.5s ease-in-out;
+      padding: 0 20px;
     }
     .hero h1 { font-size: 2.8em; margin-bottom: 15px; }
     .hero p { font-size: 1.3em; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
+
     /* SECCIONES GENERALES */
     section { padding: 80px 20px; }
     section h2 {
@@ -102,11 +111,11 @@
       bottom: -5px;
       width: 60%;
       height: 3px;
-      background-color: #0025FC;
+      background: #0025FC;
       border-radius: 2px;
     }
     section p { font-size: 1.1em; margin-bottom: 20px; text-align: justify; }
-    
+
     /* SOBRE NOSOTROS */
     #nosotros .about-grid {
       display: flex;
@@ -122,12 +131,12 @@
       max-width: 400px;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s;
     }
     #nosotros .about-grid img:hover { transform: scale(1.03); }
     #nosotros .about-text { flex: 1; min-width: 280px; max-width: 600px; }
-    
-    /* SERVICIOS / CAMPOS DE BENEFICIOS */
+
+    /* SERVICIOS */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -140,13 +149,13 @@
       padding: 20px;
       text-align: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s;
     }
     .service:hover { transform: scale(1.02); }
     .service i { font-size: 2em; color: #0045a0; margin-bottom: 15px; }
     .service h3 { font-size: 1.3em; color: #0025FC; margin-bottom: 10px; }
-    
-    /* TESTIMONIOS – Utilizamos imagen circular para cada testimonio */
+
+    /* TESTIMONIOS */
     .testimonials-container {
       display: flex;
       flex-wrap: wrap;
@@ -173,7 +182,7 @@
     }
     .testimonial p { font-size: 1em; margin-bottom: 10px; }
     .testimonial h4 { font-size: 1.1em; font-weight: 600; color: #0025FC; }
-    
+
     /* GALERÍA */
     .gallery-container {
       display: grid;
@@ -185,10 +194,10 @@
       overflow: hidden;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s;
     }
     .gallery-item:hover { transform: scale(1.02); }
-    
+
     /* CONTACTO */
     .contact-wrapper {
       display: flex;
@@ -219,42 +228,38 @@
       width: 100%;
     }
     .contact-form button {
-      background-color: #0025FC;
+      background: #0025FC;
       color: #fff;
       border: none;
       padding: 15px;
       font-size: 1.1em;
       border-radius: 4px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s;
     }
-    .contact-form button:hover { background-color: #001bb8; }
-    
+    .contact-form button:hover { background: #001bb8; }
+
     /* FOOTER */
     footer {
-      background-color: #0025FC;
+      background: #0025FC;
       color: #fff;
       text-align: center;
       padding: 30px 20px;
       margin-top: 40px;
     }
     footer p { margin: 5px 0; font-size: 0.95em; }
-    
-    /* RESPONSIVIDAD */
+
+    /* RESPONSIVE */
     @media (max-width: 768px) {
       .about-grid { flex-direction: column; text-align: center; }
       nav { flex-direction: column; gap: 10px; }
     }
   </style>
   <script>
-    // Opcional: botón "volver arriba"
+    // Botón Volver Arriba
     window.addEventListener("scroll", function() {
       const btn = document.getElementById("backToTop");
-      if (window.scrollY > 300) {
-        btn.style.display = "block";
-      } else {
-        btn.style.display = "none";
-      }
+      btn.style.display = window.scrollY > 300 ? "block" : "none";
     });
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -263,7 +268,7 @@
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- HEADER CON LOGO CENTRADO -->
   <header id="inicio">
     <div class="container header-inner">
       <div class="logo">
@@ -280,7 +285,7 @@
   </header>
 
   <!-- BOTÓN VOLVER ARRIBA -->
-  <button id="backToTop" onclick="scrollToTop()" style="position:fixed;bottom:20px;right:20px;display:none;padding:10px 15px;background:#0025FC;color:#fff;border:none;border-radius:4px;cursor:pointer;">↑ Arriba</button>
+  <button id="backToTop" onclick="scrollToTop()">↑ Arriba</button>
 
   <!-- SECCIÓN HERO -->
   <section class="hero">
@@ -294,7 +299,7 @@
   <section id="nosotros">
     <div class="container">
       <h2>Sobre Nosotros</h2>
-      <div class="about-grid">
+      <div class="about-grid animate__animated animate__fadeInUp">
         <img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Equipo Hersilia">
         <div class="about-text">
           <h3>Nuestra Historia</h3>
@@ -306,7 +311,7 @@
     </div>
   </section>
 
-  <!-- SERVICIOS / BENEFICIOS -->
+  <!-- SERVICIOS -->
   <section id="servicios">
     <div class="container">
       <h2>Servicios y Beneficios</h2>
@@ -314,22 +319,22 @@
         <div class="service animate__animated animate__bounceIn">
           <i class="fa fa-heartbeat"></i>
           <h3>Atención Integral</h3>
-          <p>Profesionales altamente capacitados ofrecen soluciones personalizadas para cada necesidad.</p>
+          <p>Soluciones personalizadas para cada necesidad.</p>
         </div>
         <div class="service animate__animated animate__bounceIn" style="animation-delay: 0.2s;">
           <i class="fa fa-users"></i>
           <h3>Trabajo Familiar</h3>
-          <p>Fortalecemos vínculos afectivos y fomentamos la comunicación en el entorno familiar.</p>
+          <p>Fortalecemos vínculos afectivos y la comunicación en casa.</p>
         </div>
         <div class="service animate__animated animate__bounceIn" style="animation-delay: 0.4s;">
           <i class="fa fa-lightbulb-o"></i>
           <h3>Desarrollo Personal</h3>
-          <p>Impulsamos el crecimiento y el bienestar emocional a través de estrategias innovadoras.</p>
+          <p>Estrategias innovadoras para el bienestar emocional.</p>
         </div>
         <div class="service animate__animated animate__bounceIn" style="animation-delay: 0.6s;">
           <i class="fa fa-comments"></i>
           <h3>Consultas Online</h3>
-          <p>Asesoría y seguimiento profesional desde la comodidad de tu hogar.</p>
+          <p>Asesoría profesional desde la comodidad de tu hogar.</p>
         </div>
       </div>
     </div>
@@ -363,7 +368,7 @@
   <section id="galeria">
     <div class="container">
       <h2>Galería</h2>
-      <div class="gallery-container">
+      <div class="gallery-container animate__animated animate__fadeIn">
         <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 1"></div>
         <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 2"></div>
         <div class="gallery-item"><img src="https://i.postimg.cc/66YsLK0z/Sin-t-tulo-1.jpg" alt="Evento 3"></div>
@@ -377,8 +382,7 @@
     <div class="container">
       <h2>Contacto</h2>
       <div class="contact-wrapper">
-        <!-- Información de contacto -->
-        <div class="contact-info">
+        <div class="contact-info animate__animated animate__fadeInLeft">
           <h3>Información de Contacto</h3>
           <ul>
             <li><strong>Teléfono:</strong> <a href="https://wa.me/593981811831" target="_blank">(098) 181-1831 (WhatsApp)</a></li>
@@ -386,8 +390,7 @@
             <li><strong>Dirección:</strong> <a href="https://goo.gl/maps/wLhuDJaFefDF1MyQ7" target="_blank">Ver en Google Maps</a></li>
           </ul>
         </div>
-        <!-- Formulario de contacto -->
-        <div class="contact-form">
+        <div class="contact-form animate__animated animate__fadeInRight">
           <h3>Envíanos un mensaje</h3>
           <form action="mailto:hersilia.ec@outlook.com" method="post" enctype="text/plain">
             <input type="text" name="nombre" placeholder="Nombre completo" required>
@@ -413,3 +416,4 @@
 
 </body>
 </html>
+
